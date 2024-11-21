@@ -47,10 +47,13 @@ let LoginService = class LoginService {
         this.UserService = UserService;
         this.pool = new pg_1.Pool({
             user: 'postgres',
-            host: 'localhost',
-            database: 'multi_tenant_app',
-            password: 'root',
+            host: 'eventx.c7uswg62u6zg.eu-north-1.rds.amazonaws.com',
+            database: 'eventxbe',
+            password: 'india0192',
             port: 5432,
+            ssl: {
+                rejectUnauthorized: false,
+            },
         });
     }
     async login(body) {
