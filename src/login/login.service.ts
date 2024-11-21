@@ -204,7 +204,7 @@ export class LoginService {
       }
 
       const admin = result.rows[0];
-      if (!bcrypt.compareSync(body.password, admin.password)) {
+      if (body.password !== admin.password) {
         throw new BadRequestException('Incorrect password');
       }
 

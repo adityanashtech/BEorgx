@@ -47,10 +47,13 @@ let LoginService = class LoginService {
         this.UserService = UserService;
         this.pool = new pg_1.Pool({
             user: 'postgres',
-            host: 'localhost',
-            database: 'multi_tenant_app',
-            password: 'root',
+            host: 'eventx.c7uswg62u6zg.eu-north-1.rds.amazonaws.com',
+            database: 'eventxbe',
+            password: 'india0192',
             port: 5432,
+            ssl: {
+                rejectUnauthorized: false,
+            },
         });
     }
     async login(body) {
@@ -186,7 +189,7 @@ let LoginService = class LoginService {
                 throw new common_1.BadRequestException('Admin with this email not found');
             }
             const admin = result.rows[0];
-            if (!bcrypt.compareSync(body.password, admin.password)) {
+            if (body.password !== admin.password) {
                 throw new common_1.BadRequestException('Incorrect password');
             }
             const token = this.jwtService.sign({

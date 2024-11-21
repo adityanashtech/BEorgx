@@ -74,7 +74,6 @@ let TenantService = class TenantService {
                 throw new Error(`Error in password encryption: ${err.message}`);
             }
         };
-        tenantData.password = await hashPassword(tenantData.password);
         if (tenantData.isRegistered) {
             tenantData.status = 'pending';
         }
@@ -91,7 +90,7 @@ let TenantService = class TenantService {
         tenant.tenant_email = tenantData.tenant_email;
         tenant.role = tenantData.role;
         tenant.tenant_code = tenantCode;
-        tenant.password = await bcrypt.hash(tenantData.password, 10);
+        tenant.password = tenantData.password;
         tenant.status = tenantData.status;
         tenant.location = tenantData.location;
         tenant.subscription_details = tenantData.subscription_details;
